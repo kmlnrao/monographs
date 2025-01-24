@@ -3,15 +3,15 @@ from langchain_groq import ChatGroq
 
 # Function to fetch a specific section of the monograph via API
 def fetch_monograph_section(drug_name, section):
-    """Fetch a specific section of the monograph for the given drug name from approved sources."""
+    """Fetch a specific section with maximum of the monographs for the given drug name from approved sources."""
     llm = ChatGroq(
         temperature=0,
         groq_api_key="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",
         model_name="llama3-8b-8192"
     )
     prompt = (
-        f"Provide a detailed {section} section for the drug '{drug_name}' using references from NCI, "
-        "WHO-ATC, FDA, Dailymed, Canada, TGA, Pubchem, and Statpearls only. Include the source URL."
+        f"Provide a more detailed {section} section with content for the drug '{drug_name}' using references from NCI, "
+        "WHO-ATC, FDA, Dailymed, Canada, TGA, Pubchem, and Statpearls only. Include the source URL use tabular format where ever required."
     )
     
     try:
@@ -50,7 +50,7 @@ def main():
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="title-container"><h1 class="title">Drug Monograph Generator</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="title-container"><h1 class="title">Drug Monographs Generator</h1></div>', unsafe_allow_html=True)
 
     st.markdown('<div class="drug-input-container" style="width:400px !important; margin:0 auto">', unsafe_allow_html=True)
     drug_name = st.text_input("Enter Drug Name:", value="", placeholder="e.g., Diclofenac", key="drug_input", help="Type the name of the drug.")
